@@ -22,6 +22,6 @@ export class Review {
   @ManyToOne(() => Visitor)
   visitor: Visitor;
 
-  @ManyToOne(() => Establishment)
+  @ManyToOne(() => Establishment, { onDelete: 'CASCADE' })
   establishment: Establishment;
 }

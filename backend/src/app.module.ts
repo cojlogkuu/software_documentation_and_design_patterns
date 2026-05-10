@@ -13,6 +13,8 @@ import { IReviewRepositoryToken } from './dal/interfaces/i-review.repository';
 import { ReviewRepository } from './dal/repositories/review.repository';
 import { SeederService } from './bll/services/seeder.service';
 import { SeederController } from './pl/controllers/seeder.controller';
+import { EstablishmentService } from './bll/services/establishment.service';
+import { EstablishmentController } from './pl/controllers/establishment.controller';
 
 @Module({
   imports: [
@@ -28,7 +30,7 @@ import { SeederController } from './pl/controllers/seeder.controller';
     }),
     TypeOrmModule.forFeature([User, Visitor, Owner, Admin, Establishment, Hotel, Restaurant, Review]),
   ],
-  controllers: [SeederController],
+  controllers: [SeederController, EstablishmentController],
   providers: [
     {
       provide: ICsvReaderToken,
@@ -47,6 +49,7 @@ import { SeederController } from './pl/controllers/seeder.controller';
       useClass: ReviewRepository,
     },
     SeederService,
+    EstablishmentService,
   ],
 })
 export class AppModule {}
