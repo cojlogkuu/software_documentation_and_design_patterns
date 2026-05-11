@@ -35,5 +35,25 @@ export const api = {
   delete: async (id: number) => {
     const res = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
     if (!res.ok) throw new Error('Failed to delete');
+  },
+  executeExport: async (strategyType: string) => {
+    const res = await fetch(`http://localhost:3000/export/execute`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ strategyType }),
+    });
+    if (!res.ok) {
+      const errorData = await res.json().catch(() => ({}));
+      throw new Error(errorData.message || 'Failed to execute export');
+    }
+    return res.json();
+  },
+  getViolations: async () => {
+    const res = await fetch(`http://localhost:3000/export/violations`);
+    if (!res.ok) {
+      const errorData = await res.json().catch(() => ({}));
+      throw new Error(errorData.message || 'Failed to fetch violations');
+    }
+    return res.json();
   }
 };
