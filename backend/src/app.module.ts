@@ -15,7 +15,11 @@ import { SeederService } from './bll/services/seeder.service';
 import { SeederController } from './pl/controllers/seeder.controller';
 import { EstablishmentService } from './bll/services/establishment.service';
 import { EstablishmentController } from './pl/controllers/establishment.controller';
-
+import { NycViolation } from './dal/entities/nyc-violation.entity';
+import { INycViolationRepositoryToken } from './dal/interfaces/i-nyc-violation.repository';
+import { NycViolationRepository } from './dal/repositories/nyc-violation.repository';
+import { ExportService } from './bll/services/export.service';
+import { ExportController } from './pl/controllers/export.controller';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -25,12 +29,12 @@ import { EstablishmentController } from './pl/controllers/establishment.controll
       username: 'root',
       password: 'password',
       database: 'tripadvisor_db',
-      entities: [User, Visitor, Owner, Admin, Establishment, Hotel, Restaurant, Review],
+      entities: [User, Visitor, Owner, Admin, Establishment, Hotel, Restaurant, Review, NycViolation],
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([User, Visitor, Owner, Admin, Establishment, Hotel, Restaurant, Review]),
+    TypeOrmModule.forFeature([User, Visitor, Owner, Admin, Establishment, Hotel, Restaurant, Review, NycViolation]),
   ],
-  controllers: [SeederController, EstablishmentController],
+  controllers: [SeederController, EstablishmentController, ExportController],
   providers: [
     {
       provide: ICsvReaderToken,
@@ -48,8 +52,13 @@ import { EstablishmentController } from './pl/controllers/establishment.controll
       provide: IReviewRepositoryToken,
       useClass: ReviewRepository,
     },
+    {
+      provide: INycViolationRepositoryToken,
+      useClass: NycViolationRepository,
+    },
     SeederService,
     EstablishmentService,
+    ExportService,
   ],
 })
 export class AppModule {}
