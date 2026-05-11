@@ -6,9 +6,19 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: tripadvisor_db
     ports:
-      - "5432:5432"
+      - '5432:5432'
     volumes:
       - pgdata:/var/lib/postgresql/data
+
+  redis:
+    image: redis:alpine
+    ports:
+      - '6379:6379'
+
+  kafka:
+    image: confluentinc/confluent-local:7.6.0
+    ports:
+      - "9092:9092"
 
 volumes:
   pgdata:

@@ -26,6 +26,8 @@
     "@nestjs/typeorm": "^11.0.1",
     "csv-parser": "^3.2.1",
     "csv-stringify": "^6.7.0",
+    "ioredis": "^5.10.1",
+    "kafkajs": "^2.2.4",
     "pg": "^8.20.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
